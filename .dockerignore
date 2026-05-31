@@ -1,0 +1,12 @@
+.git
+.gitignore
+__pycache__
+*.pyc
+*.pyo
+k8s/
+chart/
+*.md
+.dockerignore
+Dockerfile
+.venv
+.env
