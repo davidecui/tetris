@@ -49,11 +49,11 @@ The container runs as a non-root user and exposes port **8080**.
 
 ## Kubernetes (raw manifests)
 
-The `k8s/` directory provides ready-to-use manifests:
+The `skeleton/k8s/` directory provides ready-to-use manifests:
 
 ```bash
 # Apply (assumes an image is available to the cluster)
-kubectl apply -f k8s/
+kubectl apply -f skeleton/k8s/
 
 # Port-forward to test locally
 kubectl port-forward svc/tetris-web 8080:80
@@ -68,27 +68,27 @@ The raw manifests use a **ClusterIP** Service. To expose externally, change the 
 
 ## Helm Chart
 
-A self-contained Helm chart lives under `chart/`.
+A self-contained Helm chart lives under `skeleton/chart/`.
 
 ```bash
 # Lint
-helm lint ./chart
+helm lint ./skeleton/chart
 
 # Template (dry-run)
-helm template tetris-web ./chart
+helm template tetris-web ./skeleton/chart
 
 # Install
-helm install tetris-web ./chart
+helm install tetris-web ./skeleton/chart
 
 # Install with overrides
-helm install tetris-web ./chart \
+helm install tetris-web ./skeleton/chart \
   --set replicaCount=2 \
   --set service.type=NodePort \
   --set image.repository=ghcr.io/myorg/tetris-web \
   --set image.tag=v1.0.0
 
 # Upgrade
-helm upgrade tetris-web ./chart
+helm upgrade tetris-web ./skeleton/chart
 
 # Uninstall
 helm uninstall tetris-web
@@ -96,7 +96,7 @@ helm uninstall tetris-web
 
 ### Configurable Values
 
-See [`chart/values.yaml`](chart/values.yaml) for all defaults. Key parameters:
+See [`skeleton/chart/values.yaml`](skeleton/chart/values.yaml) for all defaults. Key parameters:
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
@@ -116,7 +116,7 @@ See [`chart/values.yaml`](chart/values.yaml) for all defaults. Key parameters:
 
 ## Krateo Blueprint Compatibility
 
-The chart includes a [`chart/values.schema.json`](chart/values.schema.json) file (JSON Schema draft-07) that:
+The chart includes a [`skeleton/chart/values.schema.json`](skeleton/chart/values.schema.json) file (JSON Schema draft-07) that:
 
 - Validates all input values.
 - Provides `title` and `description` fields suitable for rendering in a self-service platform UI.
@@ -133,18 +133,19 @@ The chart includes a [`chart/values.schema.json`](chart/values.schema.json) file
 │       ├── index.html      # Game page
 │       ├── style.css       # Styling
 │       └── tetris.js       # Game engine
-├── k8s/
-│   ├── deployment.yaml     # Raw K8s Deployment
-│   └── service.yaml        # Raw K8s Service
-├── chart/
-│   ├── Chart.yaml
-│   ├── values.yaml
-│   ├── values.schema.json  # Krateo-ready schema
-│   └── templates/
-│       ├── _helpers.tpl
-│       ├── deployment.yaml
-│       ├── service.yaml
-│       └── ingress.yaml
+├── skeleton/
+│   ├── k8s/
+│   │   ├── deployment.yaml # Raw K8s Deployment
+│   │   └── service.yaml    # Raw K8s Service
+│   └── chart/
+│       ├── Chart.yaml
+│       ├── values.yaml
+│       ├── values.schema.json # Krateo-ready schema
+│       └── templates/
+│           ├── _helpers.tpl
+│           ├── deployment.yaml
+│           ├── service.yaml
+│           └── ingress.yaml
 ├── Dockerfile
 ├── .dockerignore
 ├── requirements.txt
