@@ -1,13 +1,9 @@
-{{/*
-Expand the name of the chart.
-*/}}
+# Expand the name of the chart.
 {{- define "tetris-web.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
-{{/*
-Create a fully qualified app name.
-*/}}
+# Create a fully qualified app name.
 {{- define "tetris-web.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
@@ -21,9 +17,7 @@ Create a fully qualified app name.
 {{- end }}
 {{- end }}
 
-{{/*
-Common labels.
-*/}}
+# Common labels.
 {{- define "tetris-web.labels" -}}
 helm.sh/chart: {{ printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{ include "tetris-web.selectorLabels" . }}
@@ -31,9 +25,7 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
-{{/*
-Selector labels.
-*/}}
+# Selector labels.
 {{- define "tetris-web.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "tetris-web.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
