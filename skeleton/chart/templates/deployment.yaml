@@ -1,37 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "tetris-web.fullname" . }}
+  name: {{ "{{" {{ "}}" }} include "tetris-web.fullname" . {{ "}}" }}
   labels:
-    {{- include "tetris-web.labels" . | nindent 4 }}
+    {{ "{{" {{ "}}" }}- include "tetris-web.labels" . | nindent 4 {{ "}}" }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ "{{" {{ "}}" }} .Values.replicaCount {{ "}}" }}
   selector:
     matchLabels:
-      {{- include "tetris-web.selectorLabels" . | nindent 6 }}
+      {{ "{{" {{ "}}" }}- include "tetris-web.selectorLabels" . | nindent 6 {{ "}}" }}
   template:
     metadata:
       labels:
-        {{- include "tetris-web.selectorLabels" . | nindent 8 }}
+        {{ "{{" {{ "}}" }}- include "tetris-web.selectorLabels" . | nindent 8 {{ "}}" }}
     spec:
       containers:
-        - name: {{ include "tetris-web.name" . }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+        - name: {{ "{{" {{ "}}" }} include "tetris-web.name" . {{ "}}" }}
+          image: "{{ "{{" {{ "}}" }} .Values.image.repository {{ "}}" }}:{{ "{{" {{ "}}" }} .Values.image.tag {{ "}}" }}"
+          imagePullPolicy: {{ "{{" {{ "}}" }} .Values.image.pullPolicy {{ "}}" }}
           ports:
-            - containerPort: {{ .Values.service.targetPort }}
+            - containerPort: {{ "{{" {{ "}}" }} .Values.service.targetPort {{ "}}" }}
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: {{ .Values.app.healthPath }}
-              port: {{ .Values.service.targetPort }}
+              path: {{ "{{" {{ "}}" }} .Values.app.healthPath {{ "}}" }}
+              port: {{ "{{" {{ "}}" }} .Values.service.targetPort {{ "}}" }}
             initialDelaySeconds: 5
             periodSeconds: 10
           readinessProbe:
             httpGet:
-              path: {{ .Values.app.healthPath }}
-              port: {{ .Values.service.targetPort }}
+              path: {{ "{{" {{ "}}" }} .Values.app.healthPath {{ "}}" }}
+              port: {{ "{{" {{ "}}" }} .Values.service.targetPort {{ "}}" }}
             initialDelaySeconds: 3
             periodSeconds: 5
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{ "{{" {{ "}}" }}- toYaml .Values.resources | nindent 12 {{ "}}" }}
