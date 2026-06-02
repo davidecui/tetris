@@ -79,7 +79,7 @@
           "maximum": 65535
         }
       },
-      "required": ["type", "port", "targetPort"]
+      "required": ["type", "port"]
     },
     "resources": {
       "type": "object",
