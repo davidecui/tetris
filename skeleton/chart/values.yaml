@@ -4,7 +4,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 image:
-  repository: tetris-web
+  repository: ghcr.io/davidecui/tetris-web
   tag: latest
   pullPolicy: IfNotPresent
 
